@@ -7,7 +7,7 @@ public class PlaneSeatingFourPerson {
     public static int solution(int n, String s) {
         int totalNumberOfFamilyOfFours = 0;
         if (s.isEmpty()) {
-            // if entire row is unreserved, max 2 family can be seated  in this arrangement "CDEF" and "GHJK"
+            // if entire row is unreserved, max 2 family can be seated  in this arrangement "BCDE" and "FGHJ"
             totalNumberOfFamilyOfFours = 2 * n;
             System.out.println("Reserved seats:" + s + ":rows:" + n + "; Total number of family of four that can fit together in unreserved seats:" + totalNumberOfFamilyOfFours);
             return totalNumberOfFamilyOfFours;
@@ -17,9 +17,9 @@ public class PlaneSeatingFourPerson {
             int row = Integer.parseInt(occupiedSeat.substring(0, occupiedSeat.length() - 1));
             char columnChar = occupiedSeat.substring(occupiedSeat.length() - 1).charAt(0);
             map.putIfAbsent(row, new ArrayList<>());
-            map.get(row).add(columnChar); // row as key and list of reserved columns as value
+            map.get(row).add(columnChar); // row as key and list of reserved columns chars as value
         }
-        // if entire row is unreserved, max 2 family of 4 can be seated  in this arrangement CDEF and GHJK
+        // if entire row is unreserved, max 2 family can be seated  in this arrangement "BCDE" and "FGHJ"
         totalNumberOfFamilyOfFours = 2 * (n - map.size());
         for (Map.Entry<Integer, List<Character>> entry : map.entrySet()) {
             List<Character> seats = entry.getValue();
@@ -33,16 +33,16 @@ public class PlaneSeatingFourPerson {
                 if (seat >= 'D' && seat <= 'G')
                     isMiddle = true;
                 if (isLeftAisle && isRightAisle && isMiddle) {
-                    // skipping this as this is already covered in "2 * (n-map.size())"
+                    // not possible for seating arrangement
                     break;
                 }
             }
             if (!isLeftAisle)
-                totalNumberOfFamilyOfFours += 1;
+                totalNumberOfFamilyOfFours += 1; // family can be fit together in BCDE
             if (!isRightAisle)
-                totalNumberOfFamilyOfFours += 1;
+                totalNumberOfFamilyOfFours += 1; // family can be fit together in FGHJ
             if (isLeftAisle && isRightAisle && !isMiddle)
-                totalNumberOfFamilyOfFours += 1;
+                totalNumberOfFamilyOfFours += 1; // family can be fit together in DEFG
         }
         System.out.println("Reserved seats:" + s + ":rows:" + n + "; Total number of family of four that can fit together in unreserved seats:" + totalNumberOfFamilyOfFours);
         return totalNumberOfFamilyOfFours;
