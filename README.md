@@ -1,7 +1,5 @@
 # planeseating
-| Program | 
-| ------------- |
-| package seating;
+
 
 import java.util.*;
 
@@ -57,4 +55,4 @@ public class PlaneSeatingFourPerson {
         solution(22, "1A 3C 2B 20G 5A");
     }
 }
-  |
+  
